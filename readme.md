@@ -1,6 +1,6 @@
 # Azure Locust
 
-Run distributed [Locust](https://locust.io/) load tests on _Azure Container Instances_. It's quick, cheap and scalable! Using 20 slaves you can achieve ~12 000 req/s!
+Run distributed [Locust](https://locust.io/) load tests on _Azure Container Instances_. It's quick, cheap and scalable! Using 20 workers you can achieve ~12 000 req/s!
 
 ![Locust Diagram](docs/locust-diagram.png)
 
@@ -15,14 +15,15 @@ Make sure you are logged in to [Azure Portal](https://portal.azure.com).
 
 Click magick button (you can open it in new tab):
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FORBA%2Fazure-locust%2Fmaster%2FmainTemplate.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fwmuldergov%2Fazure-locust%2Fmaster%2FmainTemplate.json
+)
 
 Then fill form with given values.
 
 - **Subscription:** choose your subscription
 - **Resource Group:** select existing Resource Group or create new one
 - **Location:** North Europe (any allowed, but keep in mind its part of Locust DNS address!)
-- **Instances (optional):**  number of slaves (one slave ~600rps)
+- **Instances (optional):**  number of workers (one worker ~600rps)
 
 ![Custom Deployment](docs/custom-deployment.png)
 
@@ -61,7 +62,7 @@ Edit contents of your new file and click _Save_.
 
 ![Edit Storage](docs/locust-save.png)
 
-Then restart all containers called like *master* and *slave*.
+Then restart all containers called like *master* and *worker*.
 
 ![Acis](docs/locust-acis.png)
 

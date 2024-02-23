@@ -7,9 +7,9 @@
       {
         "name": "instances",
         "type": "Microsoft.Common.DropDown",
-        "label": "Number of slaves",
+        "label": "Number of workers",
         "defaultValue": "3",
-        "toolTip": "One slave ~600rps",
+        "toolTip": "Each worker uses 1 CPU",
         "constraints": {
           "allowedValues": [
             {
