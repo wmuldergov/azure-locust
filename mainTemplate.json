@@ -25,7 +25,7 @@
     },
     "locationRegion2": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "canadaeast",
       "metadata": {
         "description": "Location where resources will be provisioned. If specified, must be a valid Azure location e.g. 'canadaeast'"
       }
