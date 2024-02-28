@@ -46,6 +46,7 @@
     "containerMasterName": "master",
     "containerMasterImage": "[variables('locustImage')]",
     "containerWorkerGroup": "[concat(variables('prefix'),'-worker')]",
+    "containerWorkerGroupRegion2": "[concat(variables('prefix'),'-region2-worker')]",
     "containerWorkerName": "worker",
     "containerWorkerImage": "[variables('locustImage')]",
     "containerMasterAddress": "[concat(variables('containerDns'), '.', variables('location'), '.azurecontainer.io')]",
@@ -190,7 +191,7 @@
       }
     },
     {
-      "name": "[concat(variables('containerWorkerGroup'), '-Region1-', copyIndex())]",
+      "name": "[concat(variables('containerWorkerGroup'), '-', copyIndex())]",
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "location": "[variables('location')]",
@@ -244,7 +245,7 @@
       }
     },
     {
-      "name": "[concat(variables('containerWorkerGroup'), '-Region2-', copyIndex())]",
+      "name": "[concat(variables('containerWorkerGroupRegion2'), '-', copyIndex())]",
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "location": "[variables('locationRegion2')]",
