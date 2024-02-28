@@ -14,7 +14,7 @@
       "metadata": {
         "description": "Number of workers"
       },
-      "defaultValue": 18
+      "defaultValue": 3
     },
     "locustfile": {
       "type": "string",
@@ -33,15 +33,15 @@
     "storageAccountName": "[variables('prefix')]",
     "containerProvisionerName": "[concat(variables('storageAccountName'), '-provisioner')]",
     "containerName": "createshare",
-    "containerDns": "[concat(variables('prefix'),'-controller')]",
-    "containerControllerGroup": "[concat(variables('prefix'),'-controller')]",
-    "containerControllerName": "controller",
-    "containerControllerImage": "[variables('locustImage')]",
+    "containerDns": "[concat(variables('prefix'),'-master')]",
+    "containerMasterGroup": "[concat(variables('prefix'),'-master')]",
+    "containerMasterName": "master",
+    "containerMasterImage": "[variables('locustImage')]",
     "containerWorkerGroup": "[concat(variables('prefix'),'-worker')]",
     "containerWorkerName": "worker",
     "containerWorkerImage": "[variables('locustImage')]",
-    "containerControllerAddress": "[concat(variables('containerDns'), '.', variables('location'), '.azurecontainer.io')]",
-    "containerControllerUrl": "[concat('http://', variables('containerControllerAddress'), ':8089')]",
+    "containerMasterAddress": "[concat(variables('containerDns'), '.', variables('location'), '.azurecontainer.io')]",
+    "containerMasterUrl": "[concat('http://', variables('containerMasterAddress'), ':8089')]",
     "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
   },
   "resources": [
@@ -110,7 +110,7 @@
       }
     },
     {
-      "name": "[variables('containerControllerGroup')]",
+      "name": "[variables('containerMasterGroup')]",
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "location": "[variables('location')]",
@@ -120,14 +120,14 @@
       "properties": {
         "containers": [
           {
-            "name": "[variables('containerControllerName')]",
+            "name": "[variables('containerMasterName')]",
             "properties": {
-              "image": "[variables('containerControllerImage')]",
+              "image": "[variables('containerMasterImage')]",
               "command": [
                 "locust",
                 "-f",
                 "/mnt/locust/locustfile.py",
-                "--controller",
+                "--master",
                 "--host",
                 "https://"
               ],
@@ -204,8 +204,8 @@
                 "-f",
                 "/mnt/locust/locustfile.py",
                 "--worker",
-                "--controller-host",
-                "[variables('containerControllerAddress')]"
+                "--master-host",
+                "[variables('containerMasterAddress')]"
               ],
               "resources": {
                 "requests": {
@@ -243,7 +243,7 @@
     },
     "url": {
       "type": "string",
-      "value": "[variables('containerControllerUrl')]"
+      "value": "[variables('containerMasterUrl')]"
     }
   }
 }
