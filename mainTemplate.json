@@ -12,16 +12,9 @@
     "instances": {
       "type": "int",
       "metadata": {
-        "description": "Number of workers"
+        "description": "Number of workers per region"
       },
       "defaultValue": 18
-    },
-    "instancesRegion2": {
-      "type": "int",
-      "metadata": {
-        "description": "Number of workers if you want a second region"
-      },
-      "defaultValue": 1
     },
     "locationRegion2": {
       "type": "string",
@@ -260,7 +253,7 @@
       ],
       "copy": {
         "name": "workercopy",
-        "count": "[parameters('instancesRegion2')]"
+        "count": "[parameters('instances')]"
       },
       "properties": {
         "containers": [
