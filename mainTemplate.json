@@ -21,7 +21,7 @@
       "metadata": {
         "description": "Number of workers if you want a second region"
       },
-      "defaultValue": 0
+      "defaultValue": 1
     },
     "locationRegion2": {
       "type": "string",
