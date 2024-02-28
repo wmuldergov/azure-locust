@@ -260,7 +260,7 @@
       ],
       "copy": {
         "name": "workercopy",
-        "count": "[variables('instancesRegion2')]"
+        "count": "[parameters('instancesRegion2')]"
       },
       "properties": {
         "containers": [
