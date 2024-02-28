@@ -190,7 +190,7 @@
       }
     },
     {
-      "name": "[concat(variables('containerWorkerGroup'), '-', copyIndex())]",
+      "name": "[concat(variables('containerWorkerGroup'), '-Region1-', copyIndex())]",
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "location": "[variables('location')]",
