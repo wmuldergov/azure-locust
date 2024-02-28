@@ -1,6 +1,8 @@
 # Azure Locust
 
-Run distributed [Locust](https://locust.io/) load tests on _Azure Container Instances_. It's quick, cheap and scalable! Using 20 workers you can achieve ~12 000 req/s!
+Run distributed [Locust](https://locust.io/) load tests on _Azure Container Instances_. It's quick, cheap and scalable! 
+
+Credit to https://github.com/Lingaro/azure-locust for the base of this code.
 
 ![Locust Diagram](docs/locust-diagram.png)
 
@@ -22,12 +24,13 @@ Then fill form with given values.
 
 - **Subscription:** choose your subscription
 - **Resource Group:** select existing Resource Group or create new one
-- **Location:** North Europe (any allowed, but keep in mind its part of Locust DNS address!)
-- **Instances (optional):**  number of workers (one worker ~600rps)
+- **Location:** Canada Central (any allowed, but keep in mind its part of Locust DNS address!)
+- **Instances (optional):**  number of workers 
 
 ![Custom Deployment](docs/custom-deployment.png)
 
-Click **Purchase** and wait for deployment ends. Follow notifications on Azure Portal:
+Click **Review + Create** and on the following Screen click **Create** then wait for deployment ends. 
+The following screen should show you when the deployment is complete:
 
 ![Notification](docs/locust-notification.png)
 
@@ -43,7 +46,7 @@ Go to `xxxxxxxxxxxxx-master` and find out Locust FQDN - copy it.
 
 When deployment succeeded, your load generator is ready. Go to the above FQDN and port 8089: 
 
-`http://xxxxxxxxxxxxx-master.northeurope.azurecontainer.io:8089` 
+`http://xxxxxxxxxxxxx-master.canadacentral.azurecontainer.io:8089` 
 
 At this point you can start tests. 
 
@@ -56,8 +59,8 @@ Go to your Resource Group and click **Storage Account** named `xxxxxxxxxxxxx`.
 
 ![Edit Storage](docs/locust-sa.png)
 
-Click _File shares_ (scroll panel down).
-Go to share called `scripts` and edit `locustfile.py` (click `...` and edit).
+Click _File shares_ under _Data Storage_ (left panel).
+Go to share called `scripts` then click _Browse_ (Left bar) and then edit `locustfile.py` (click `...` and edit).
 Edit contents of your new file and click _Save_.
 
 ![Edit Storage](docs/locust-save.png)
@@ -92,12 +95,12 @@ az account set --subscription <SubscriptionId>
 
 **Step 1:** Setup your names
 ```
-export RG=<ResourceGroup>
+RG= "<ResourceGroup>"
 ```
 
 **Step 2:** Create Resource Group (if not exists)
 ```
-az group create --name ${RG} --location northeurope
+az group create --name ${RG} --location canadacentral
 ```
 
 **Step 3:** Deploy ARM template
@@ -117,7 +120,7 @@ az group deployment create --resource-group ${RG} --query properties.outputs --t
     },
     "url": {
       "type": "String",
-      "value": "http://xxxxxxxxxxxxx-master.northeurope.azurecontainer.io:8089"
+      "value": "http://xxxxxxxxxxxxx-master.canadacentral.azurecontainer.io:8089"
     }
   }
 }
@@ -136,15 +139,17 @@ Upload your custom script. Replace account name with above `prefix`. You can cha
 az storage file upload --account-name <prefix> -s scripts --source locustfile.py --path locustfile.py
 ```
 Then restart containers:
+
 ```
-az container list --resource-group ${RG} --query '[].name' -o tsv | xargs -I {} az container restart --no-wait --resource-group ${RG} --name {} 
+az container list --resource-group $RG --query '[].name' -o tsv | ForEach-Object { az container restart --no-wait --resource-group $RG --name $_ }
 ```
+NOTE: This may take a few minutes. To view the status you can go into the UI and view the Activity Log for a particular container and confirm it was restarted.
 
 ### 4. Cleanup (CLI)
 
 Remove resources from Azure:
 ```
-az group delete --name ${RG} --yes
+az group delete --name $RG --yes
 ```
 
 ## Disclaimer

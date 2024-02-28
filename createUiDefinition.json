@@ -8,7 +8,7 @@
         "name": "instances",
         "type": "Microsoft.Common.DropDown",
         "label": "Number of workers",
-        "defaultValue": "3",
+        "defaultValue": "18",
         "toolTip": "Each worker uses 1 CPU",
         "constraints": {
           "allowedValues": [
