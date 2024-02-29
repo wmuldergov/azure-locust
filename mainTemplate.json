@@ -69,6 +69,7 @@
     "containerMasterImage": "[variables('locustImage')]",
     "containerWorkerGroup": "[concat(variables('prefix'),'-worker')]",
     "containerWorkerGroupRegion2": "[concat(variables('prefix'),'-region2-worker')]",
+    "containerWorkerGroupRegion3": "[concat(variables('prefix'),'-region3-worker')]",
     "containerWorkerName": "worker",
     "containerWorkerImage": "[variables('locustImage')]",
     "containerMasterAddress": "[concat(variables('containerDns'), '.', variables('location'), '.azurecontainer.io')]",
