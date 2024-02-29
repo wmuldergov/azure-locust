@@ -14,7 +14,7 @@
       "metadata": {
         "description": "Number of workers in your first region"
       },
-      "defaultValue": 17
+      "defaultValue": 16
     },
     "instancesRegion2": {
       "type": "int",
@@ -197,7 +197,7 @@
               ],
               "resources": {
                 "requests": {
-                  "cpu": 2,
+                  "cpu": 3,
                   "memoryInGb": 2
                 }
               },
