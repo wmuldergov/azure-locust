@@ -39,7 +39,7 @@
     },
     "locationRegion3": {
       "type": "string",
-      "defaultValue": "canadaeast",
+      "defaultValue": "westus",
       "metadata": {
         "description": "Location where resources will be provisioned. If specified, must be a valid Azure location e.g. 'westus'"
       }
