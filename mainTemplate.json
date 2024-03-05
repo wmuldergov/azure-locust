@@ -274,7 +274,7 @@
               "resources": {
                 "requests": {
                   "cpu": 1,
-                  "memoryInGb": 0.5
+                  "memoryInGb": 1
                 }
               },
               "volumeMounts": [
@@ -328,7 +328,7 @@
               "resources": {
                 "requests": {
                   "cpu": 1,
-                  "memoryInGb": 1.0
+                  "memoryInGb": 1
                 }
               },
               "volumeMounts": [
@@ -382,7 +382,7 @@
               "resources": {
                 "requests": {
                   "cpu": 1,
-                  "memoryInGb": 0.5
+                  "memoryInGb": 1
                 }
               },
               "volumeMounts": [
@@ -436,7 +436,7 @@
               "resources": {
                 "requests": {
                   "cpu": 1,
-                  "memoryInGb": 0.5
+                  "memoryInGb": 1
                 }
               },
               "volumeMounts": [
@@ -490,7 +490,7 @@
               "resources": {
                 "requests": {
                   "cpu": 1,
-                  "memoryInGb": 0.5
+                  "memoryInGb": 1
                 }
               },
               "volumeMounts": [
