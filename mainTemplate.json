@@ -328,7 +328,7 @@
               "resources": {
                 "requests": {
                   "cpu": 1,
-                  "memoryInGb": 0.5
+                  "memoryInGb": 1.0
                 }
               },
               "volumeMounts": [
