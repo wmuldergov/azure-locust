@@ -2,6 +2,8 @@
 
 Run distributed [Locust](https://locust.io/) load tests on _Azure Container Instances_. It's quick, cheap and scalable! 
 
+During testing, it ran 96 workers over about 2hr 10min and cost ~$15CAD in Azure Credit
+
 Credit to https://github.com/Lingaro/azure-locust for the base of this code.
 
 ![Locust Diagram](docs/locust-diagram.png)
@@ -15,17 +17,24 @@ Make sure you are logged in to [Azure Portal](https://portal.azure.com).
 
 ### 1. Deployment (Portal)
 
-Click magick button (you can open it in new tab):
+Click the Deploy to Azure button (you can open it in new tab):
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fwmuldergov%2Fazure-locust%2Fmaster%2FmainTemplate.json
 )
+
+NOTE: If you are cloning this code, the Deploy to Azure button is coded to point to the file in the source repo, so you will need to change it.
 
 Then fill form with given values.
 
 - **Subscription:** choose your subscription
 - **Resource Group:** select existing Resource Group or create new one
 - **Location:** Canada Central (any allowed, but keep in mind its part of Locust DNS address!)
-- **Instances (optional):**  number of workers 
+- **Instances:**  number of workers 
+- **Instances RegionX (optional):**  number of workers in that region
+- **Location RegionX (optional):**  region for those workers. NOTE: Must be the short names like `canadacentral`, `westus1` etc.
+
+This template allows up to 5 regions, with 16 workers for region 1 (based on vCPU limit of 20) and 20 in the remaining regions due to no need for provisioner or master in those regions.
+
 
 ![Custom Deployment](docs/custom-deployment.png)
 
@@ -66,6 +75,7 @@ Edit contents of your new file and click _Save_.
 ![Edit Storage](docs/locust-save.png)
 
 Then restart all containers called like *master* and *worker*.
+NOTE: This might be easier to do in the CLI if you have a large number of workers
 
 ![Acis](docs/locust-acis.png)
 
@@ -84,7 +94,7 @@ You will need to type Resource Group name to confirm.
 
 ## Azure CLI
 
-Login and set subscription context
+In Powershell, Login and set subscription context
 
 ```
 az login
@@ -95,7 +105,7 @@ az account set --subscription <SubscriptionId>
 
 **Step 1:** Setup your names
 ```
-RG= "<ResourceGroup>"
+In Powershell: $RG= "<ResourceGroup>"
 ```
 
 **Step 2:** Create Resource Group (if not exists)
@@ -107,7 +117,7 @@ az group create --name ${RG} --location canadacentral
 ```
 az group deployment create --resource-group ${RG} --query properties.outputs --template-file mainTemplate.json 
 ```
-- To change number of instances append `--parameters instances=<n>`
+- To change number of instances append `--parameters instances=<n>`, for other regions you need to add `--parameters instancesRegionX=<n>` (for regions 2-5 if you want something other than default values)
 
 **Step 4:** Note values of `prefix` and `url` from console output.
 
@@ -143,7 +153,7 @@ Then restart containers:
 ```
 az container list --resource-group $RG --query '[].name' -o tsv | ForEach-Object { az container restart --no-wait --resource-group $RG --name $_ }
 ```
-NOTE: This may take a few minutes. To view the status you can go into the UI and view the Activity Log for a particular container and confirm it was restarted.
+NOTE: This may take a few minutes, roughly 5 min for 96 workers. You can ignore the message about provisioner being stopped.
 
 ### 4. Cleanup (CLI)
 
