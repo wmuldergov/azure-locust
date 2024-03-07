@@ -49,7 +49,7 @@
       "metadata": {
         "description": "Number of workers in your fourth Region"
       },
-      "defaultValue": 0
+      "defaultValue": 20
     },
     "locationRegion4": {
       "type": "string",
@@ -63,7 +63,7 @@
       "metadata": {
         "description": "Number of workers in your fifth Region"
       },
-      "defaultValue": 0
+      "defaultValue": 20
     },
     "locationRegion5": {
       "type": "string",
@@ -81,7 +81,7 @@
     }
   },
   "variables": {
-    "locustImage": "locustio/locust:2.23.1",
+    "locustImage": "locustio/locust:2",
     "location": "[parameters('location')]",
     "locationRegion2": "[parameters('locationRegion2')]",
     "locationRegion3": "[parameters('locationRegion3')]",

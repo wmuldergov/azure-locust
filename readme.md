@@ -17,7 +17,7 @@ Make sure you are logged in to [Azure Portal](https://portal.azure.com).
 
 ### 1. Deployment (Portal)
 
-Click the Deploy to Azure button (you can open it in new tab):
+Click the Deploy to Azure button (ctrl click to open it in new tab):
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fwmuldergov%2Fazure-locust%2Fmaster%2FmainTemplate.json
 )
